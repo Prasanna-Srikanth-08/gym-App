@@ -1,15 +1,16 @@
 package com.application.gym.entity;
 
 import com.application.gym.dto.EventDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
+@Table(name = "gym_event")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -17,6 +18,12 @@ public class Event {
     private String eventName;
     private String description;
     private LocalDateTime eventDateTime;
+
+    @OneToMany
+    @JoinColumn(name = "fk_event_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<User> participants;
+
 
     public int getEventId() {
         return eventId;
@@ -50,12 +57,21 @@ public class Event {
         this.eventDateTime = eventDateTime;
     }
 
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
+    }
+
     public static EventDto prepareEventDto(Event event) {
         EventDto eventDto = new EventDto();
         eventDto.setEventId(event.getEventId());
         eventDto.setEventName(event.getEventName());
         eventDto.setDescription(event.getDescription());
         eventDto.setEventDateTime(event.getEventDateTime());
+        eventDto.setParticipants(event.getParticipants());
         return eventDto;
     }
 }

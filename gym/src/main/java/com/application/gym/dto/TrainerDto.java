@@ -15,6 +15,8 @@ public class TrainerDto {
     //private List<User> trainee;
     private Long mobileNo;
 
+    private List<User> trainee;
+
     public Long getTrainerId() {
         return trainerId;
     }
@@ -63,6 +65,14 @@ public class TrainerDto {
         this.mobileNo = mobileNo;
     }
 
+    public List<User> getTrainee() {
+        return trainee;
+    }
+
+    public void setTrainee(List<User> trainee) {
+        this.trainee = trainee;
+    }
+
     public static Trainer prepareTrainer(TrainerDto trainerDto) {
         Trainer trainer = new Trainer();
         trainer.setName(trainerDto.getName());
@@ -71,6 +81,7 @@ public class TrainerDto {
         trainer.setPassword(trainerDto.getPassword());
         trainer.setMobileNo(trainerDto.getMobileNo());
         trainer.setTrainerId(trainerDto.getTrainerId());
+        trainer.setTrainee(trainerDto.getTrainee());
         return trainer;
     }
 }

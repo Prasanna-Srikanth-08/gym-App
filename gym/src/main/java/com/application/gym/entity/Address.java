@@ -1,11 +1,9 @@
 package com.application.gym.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user_address")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

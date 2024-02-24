@@ -3,7 +3,14 @@ package com.application.gym.dto;
 import com.application.gym.entity.PersonalDetails;
 import com.application.gym.entity.Trainer;
 import com.application.gym.entity.User;
+import com.application.gym.entity.WorkoutDetails;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto {
     private Long id;
     private String email;
@@ -13,7 +20,7 @@ public class UserDto {
 
     private PersonalDetails personalDetails;
 
-    private Trainer trainer;
+    private List<WorkoutDetails> workOutSchedule;
 
     public Long getId() {
         return id;
@@ -55,12 +62,12 @@ public class UserDto {
         this.personalDetails = personalDetails;
     }
 
-    public Trainer getTrainer() {
-        return trainer;
+    public List<WorkoutDetails> getWorkOutSchedule() {
+        return workOutSchedule;
     }
 
-    public void setTrainer(Trainer trainer) {
-        this.trainer = trainer;
+    public void setWorkOutSchedule(List<WorkoutDetails> workOutSchedule) {
+        this.workOutSchedule = workOutSchedule;
     }
 
     public static User prepareUser(UserDto userDto) {
@@ -70,7 +77,7 @@ public class UserDto {
         user.setPassword(userDto.getPassword());
         user.setName(userDto.getName());
         user.setPersonalDetails(userDto.getPersonalDetails());
-        user.setTrainer(userDto.getTrainer());
+        user.setWorkOutSchedule(userDto.getWorkOutSchedule());
         return user;
     }
 }

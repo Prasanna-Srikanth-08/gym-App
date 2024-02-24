@@ -2,8 +2,10 @@ package com.application.gym.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "gym_admin")
 public class Admin {
 
     @Id

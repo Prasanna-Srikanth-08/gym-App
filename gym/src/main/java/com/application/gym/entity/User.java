@@ -2,9 +2,17 @@ package com.application.gym.entity;
 
 import com.application.gym.dto.UserDto;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.engine.internal.Cascade;
+import org.hibernate.type.SqlTypes;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Entity
+@Table(name="gym_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -16,9 +24,8 @@ public class User {
     @JoinColumn(name = "personalDetailsId")
     private PersonalDetails personalDetails;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "trainerId")
-    private Trainer trainer;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private List<WorkoutDetails> workOutSchedule;
 
     public Long getId() {
         return id;
@@ -60,12 +67,12 @@ public class User {
         this.personalDetails = personalDetails;
     }
 
-    public Trainer getTrainer() {
-        return trainer;
+    public List<WorkoutDetails> getWorkOutSchedule() {
+        return workOutSchedule;
     }
 
-    public void setTrainer(Trainer trainer) {
-        this.trainer = trainer;
+    public void setWorkOutSchedule(List<WorkoutDetails> workOutSchedule) {
+        this.workOutSchedule = workOutSchedule;
     }
 
     public static UserDto prepareUserDto(User user) {
@@ -75,7 +82,7 @@ public class User {
         userDto.setPassword(user.getPassword());
         userDto.setName(user.getName());
         userDto.setPersonalDetails(user.getPersonalDetails());
-        userDto.setTrainer(user.getTrainer());
+        userDto.setWorkOutSchedule(user.getWorkOutSchedule());
         return userDto;
     }
 }

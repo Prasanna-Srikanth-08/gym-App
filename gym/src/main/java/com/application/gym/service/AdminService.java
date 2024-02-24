@@ -2,14 +2,8 @@ package com.application.gym.service;
 
 
 import com.application.gym.dto.*;
-import com.application.gym.entity.Admin;
-import com.application.gym.entity.Event;
-import com.application.gym.entity.Trainer;
-import com.application.gym.entity.User;
-import com.application.gym.repository.AdminRepository;
-import com.application.gym.repository.EventRepository;
-import com.application.gym.repository.TrainerRepository;
-import com.application.gym.repository.UserRepository;
+import com.application.gym.entity.*;
+import com.application.gym.repository.*;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +26,9 @@ public class AdminService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private WorkoutRepository workoutRepository;
 
     public LoginResponse adminLogin(LoginDto loginDto) throws BadRequestException {
         Optional<Admin> admin = adminRepository.findByEmail(loginDto.getEmail());
@@ -122,4 +119,28 @@ public class AdminService {
         return eventDtoList;
     }
 
+    public WorkoutDto addWorkout(WorkoutDto workoutDto) {
+        Workout workout = WorkoutDto.prepareWorkout(workoutDto);
+        Workout persistedWorkout = workoutRepository.save(workout);
+        return Workout.prepareWorkoutDto(persistedWorkout);
+    }
+
+    public List<WorkoutDto> getAllWorkouts() {
+        List<Workout> workoutList = workoutRepository.findAll();
+        List<WorkoutDto> workoutDtoList = new ArrayList<>();
+        for(Workout workout : workoutList) {
+            WorkoutDto workoutDto = Workout.prepareWorkoutDto(workout);
+            workoutDtoList.add(workoutDto);
+        }
+        return workoutDtoList;
+    }
+
+    public String deleteWorkout(int workoutId) throws BadRequestException {
+        Optional<Workout> workout = workoutRepository.findById(workoutId);
+        if(workout.isEmpty()) {
+            throw new BadRequestException("Workout for given id not found");
+        }
+        workoutRepository.delete(workout.get());
+        return "Workout "+workoutId+" deleted successfully";
+    }
 }
