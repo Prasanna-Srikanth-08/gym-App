@@ -1,5 +1,6 @@
 package com.application.gym.entity;
 
+import com.application.gym.Enums.WorkoutType;
 import com.application.gym.dto.PersonalDetailsDto;
 import jakarta.persistence.*;
 
@@ -13,6 +14,8 @@ public class PersonalDetails {
     private Long mobileNumber;
     private float weight;
     private float heightInMeters;
+
+    private WorkoutType workoutType;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "addressId")
@@ -66,6 +69,14 @@ public class PersonalDetails {
         this.address = address;
     }
 
+    public WorkoutType getWorkoutType() {
+        return workoutType;
+    }
+
+    public void setWorkoutType(WorkoutType workoutType) {
+        this.workoutType = workoutType;
+    }
+
     public static PersonalDetailsDto preparePersonalDetailsDto(PersonalDetails personalDetails){
         PersonalDetailsDto personalDetailsDto = new PersonalDetailsDto();
         personalDetailsDto.setPersonalDetailsId(personalDetails.getPersonalDetailsId());
@@ -74,6 +85,7 @@ public class PersonalDetails {
         personalDetailsDto.setWeight(personalDetails.getWeight());
         personalDetailsDto.setHeightInMeters(personalDetails.getHeightInMeters());
         personalDetailsDto.setMobileNumber(personalDetails.getMobileNumber());
+        personalDetailsDto.setWorkoutType(personalDetails.getWorkoutType());
         return personalDetailsDto;
     }
 }

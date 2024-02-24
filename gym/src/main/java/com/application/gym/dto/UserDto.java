@@ -1,5 +1,6 @@
 package com.application.gym.dto;
 
+import com.application.gym.Enums.WorkoutType;
 import com.application.gym.entity.PersonalDetails;
 import com.application.gym.entity.Trainer;
 import com.application.gym.entity.User;

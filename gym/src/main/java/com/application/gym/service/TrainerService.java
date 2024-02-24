@@ -1,5 +1,6 @@
 package com.application.gym.service;
 
+import com.application.gym.Enums.WorkoutType;
 import com.application.gym.dto.*;
 import com.application.gym.entity.Trainer;
 import com.application.gym.entity.User;
@@ -106,5 +107,22 @@ public class TrainerService {
         UserDto result = User.prepareUserDto(persistedUser);
         result.setPassword("*********");
         return result;
+    }
+
+    public List<UserDto> filterUsersByWorkoutType(Long trainerId) throws BadRequestException {
+        Optional<Trainer> trainer = trainerRepository.findById(trainerId);
+        if(trainer.isEmpty()) {
+            throw new BadRequestException("Trainer not found for given id");
+        }
+        String workoutType = trainer.get().getTrainerType();
+        System.out.println(workoutType);
+        List<User> userList = userRepository.findByPersonalDetailsWorkoutType(WorkoutType.valueOf(workoutType));
+        System.out.println("after user repo fetch");
+        List<UserDto> res = new ArrayList<>();
+        for(User user : userList) {
+            UserDto userDto = User.prepareUserDto(user);
+            res.add(userDto);
+        }
+        return res;
     }
 }

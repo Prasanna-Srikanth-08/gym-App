@@ -1,5 +1,6 @@
 package com.application.gym.dto;
 
+import com.application.gym.Enums.WorkoutType;
 import com.application.gym.entity.Address;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -13,6 +14,8 @@ public class PersonalDetailsDto {
     private float weight;
     private float heightInMeters;
     private Address address;
+
+    private WorkoutType workoutType;
 
     public Long getId() {
         return id;
@@ -68,5 +71,13 @@ public class PersonalDetailsDto {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public WorkoutType getWorkoutType() {
+        return workoutType;
+    }
+
+    public void setWorkoutType(WorkoutType workoutType) {
+        this.workoutType = workoutType;
     }
 }

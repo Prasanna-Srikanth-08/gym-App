@@ -54,6 +54,7 @@ public class UserService {
         personalDetails.setWeight(personalDetailsDto.getWeight());
         personalDetails.setHeightInMeters(personalDetailsDto.getHeightInMeters());
         personalDetails.setMobileNumber(personalDetailsDto.getMobileNumber());
+        personalDetails.setWorkoutType(personalDetailsDto.getWorkoutType());
         userFromDb.setPersonalDetails(personalDetails);
         User persistedUser = userRepository.save(userFromDb);
         PersonalDetails personalDetailsFromDb = persistedUser.getPersonalDetails();
@@ -78,6 +79,16 @@ public class UserService {
         event.setParticipants(usersRegistered);
         Event eventPersisted = eventRepository.save(event);
         return Event.prepareEventDto(eventPersisted);
+    }
+
+    public UserDto getUserById(Long userId) throws BadRequestException {
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isEmpty()) {
+            throw new BadRequestException("User for given user id is empty");
+        }
+        UserDto userDto = User.prepareUserDto(user.get());
+        userDto.setPassword("*******");
+        return userDto;
     }
 
 }

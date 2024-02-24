@@ -63,4 +63,15 @@ public class TrainerApi {
     public ResponseEntity<UserDto> mapWorkoutToUser(@RequestBody MapWorkoutToUserDto  mapWorkoutToUserDto) throws BadRequestException {
         return new ResponseEntity<>(trainerService.mapWorkoutToUser(mapWorkoutToUserDto),HttpStatus.OK);
     }
+
+    @Operation(summary = "Filter users",
+            description = "Trainer can filter the users based on workout type",
+            responses = {
+                    @ApiResponse(responseCode = "200",description = "OK"),
+                    @ApiResponse(responseCode = "400",description = "Bad Request")
+            })
+    @GetMapping("/filter/users/{trainerId}")
+    public ResponseEntity<List<UserDto>> getUsersByWorkoutType(@PathVariable Long trainerId) throws BadRequestException {
+        return new ResponseEntity<>(trainerService.filterUsersByWorkoutType(trainerId),HttpStatus.OK);
+    }
 }

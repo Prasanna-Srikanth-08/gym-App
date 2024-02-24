@@ -1,5 +1,6 @@
 package com.application.gym.entity;
 
+import com.application.gym.Enums.WorkoutType;
 import com.application.gym.dto.UserDto;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;

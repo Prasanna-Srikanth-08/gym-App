@@ -52,4 +52,15 @@ public class UserApi {
     public ResponseEntity<EventDto> registerUserForEvent(@PathVariable int eventId, @PathVariable Long userId) throws BadRequestException {
         return new ResponseEntity<>(userService.registerUserForEvent(eventId,userId),HttpStatus.OK);
     }
+
+    @Operation(description = "To fetch user all details by their user id",
+            summary = "Fetch user",
+            responses = {
+                    @ApiResponse(responseCode = "200",description = "OK"),
+                    @ApiResponse(responseCode = "400",description = "Bad Request")
+            })
+    @GetMapping("/user/find/{userId}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) throws BadRequestException {
+        return new ResponseEntity<>(userService.getUserById(userId),HttpStatus.OK);
+    }
 }
