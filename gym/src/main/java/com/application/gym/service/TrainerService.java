@@ -34,6 +34,7 @@ public class TrainerService {
         if(findUserByCredentials.isPresent()) {
             loginResponse.setLoggedIn(true);
             loginResponse.setLoginMessage("Logged in");
+            loginResponse.setId(findUserByCredentials.get().getTrainerId());
             return loginResponse;
         }
         throw new BadRequestException("Invalid Credentials");

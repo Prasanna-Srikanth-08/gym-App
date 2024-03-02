@@ -37,6 +37,7 @@ public class UserService {
             if(findUserByCredentials.isPresent()) {
                 loginResponse.setLoggedIn(true);
                 loginResponse.setLoginMessage("Logged in");
+                loginResponse.setId(findUserByCredentials.get().getId());
                 return loginResponse;
             }
             throw new BadRequestException("Invalid Credentials");
