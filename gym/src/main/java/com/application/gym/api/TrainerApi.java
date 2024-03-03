@@ -75,4 +75,15 @@ public class TrainerApi {
     public ResponseEntity<List<UserDto>> getUsersByWorkoutType(@PathVariable Long trainerId) throws BadRequestException {
         return new ResponseEntity<>(trainerService.filterUsersByWorkoutType(trainerId),HttpStatus.OK);
     }
+
+    @Operation(description = "To fetch user all details by their user id",
+            summary = "Fetch user",
+            responses = {
+                    @ApiResponse(responseCode = "200",description = "OK"),
+                    @ApiResponse(responseCode = "400",description = "Bad Request")
+            })
+    @GetMapping("/trainer/find/{trainerId}")
+    public ResponseEntity<TrainerDto> getTrainerById(@PathVariable Long trainerId) throws BadRequestException {
+        return new ResponseEntity<>(trainerService.getTrainerById(trainerId),HttpStatus.OK);
+    }
 }

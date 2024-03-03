@@ -126,4 +126,14 @@ public class TrainerService {
         }
         return res;
     }
+
+    public TrainerDto getTrainerById(Long trainerId) throws BadRequestException {
+        Optional<Trainer> trainer = trainerRepository.findById(trainerId);
+        if(trainer.isEmpty()) {
+            throw new BadRequestException("Trainer for given trainer id is empty");
+        }
+        TrainerDto trainerDto = Trainer.prepareTrainerDto(trainer.get());
+        trainerDto.setPassword("*******");
+        return trainerDto;
+    }
 }
