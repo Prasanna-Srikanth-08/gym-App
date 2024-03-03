@@ -27,7 +27,7 @@ public class TrainerApi {
                     @ApiResponse(responseCode = "200",description = "OK"),
                     @ApiResponse(responseCode = "400",description = "Bad Request")
             })
-    @GetMapping("/trainer/login")
+    @PostMapping("/trainer/login")
     public ResponseEntity<LoginResponse> login(@RequestBody TrainerDto trainerDto) throws BadRequestException {
         return new ResponseEntity<>(trainerService.login(trainerDto), HttpStatus.OK);
     }
