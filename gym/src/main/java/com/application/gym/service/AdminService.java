@@ -119,6 +119,15 @@ public class AdminService {
         return eventDtoList;
     }
 
+    public String deleteEvent(int eventId) throws BadRequestException {
+        Optional<Event> event = eventRepository.findById(eventId);
+        if(event.isEmpty()) {
+            throw new BadRequestException("No Event found for given event id");
+        }
+        eventRepository.deleteById(eventId);
+        return "Event deleted successfully";
+    }
+
     public WorkoutDto addWorkout(WorkoutDto workoutDto) {
         Workout workout = WorkoutDto.prepareWorkout(workoutDto);
         Workout persistedWorkout = workoutRepository.save(workout);

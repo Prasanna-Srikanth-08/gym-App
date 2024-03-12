@@ -121,6 +121,17 @@ public class AdminApi {
         return new ResponseEntity<>(adminService.getAllEvents(),HttpStatus.OK);
     }
 
+    @Operation(summary = "List Event",
+            description = "This endpoint users can use it to view the upcoming events",
+            responses = {
+                    @ApiResponse(responseCode = "200",description = "OK"),
+                    @ApiResponse(responseCode = "400",description = "Bad Request")
+            })
+    @DeleteMapping
+    public ResponseEntity<String> deleteEvent(@PathVariable("eventId") int eventId) throws BadRequestException {
+        return new ResponseEntity<>(adminService.deleteEvent(eventId),HttpStatus.OK);
+    }
+
     @PostMapping("/workout/add")
     @Operation(summary = "Add Workout",
             description = "Admin can add the workout to particular category",
