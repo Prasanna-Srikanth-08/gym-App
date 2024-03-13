@@ -127,7 +127,7 @@ public class AdminApi {
                     @ApiResponse(responseCode = "200",description = "OK"),
                     @ApiResponse(responseCode = "400",description = "Bad Request")
             })
-    @DeleteMapping
+    @DeleteMapping("/event/delete/{eventId}")
     public ResponseEntity<String> deleteEvent(@PathVariable("eventId") int eventId) throws BadRequestException {
         return new ResponseEntity<>(adminService.deleteEvent(eventId),HttpStatus.OK);
     }
