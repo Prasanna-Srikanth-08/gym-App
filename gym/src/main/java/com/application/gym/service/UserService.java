@@ -92,4 +92,12 @@ public class UserService {
         return userDto;
     }
 
+    public TrainerDto getTrainerDetails(Long id) throws BadRequestException {
+        Optional<Trainer> trainer = trainerRepository.getTrainer(id);
+        if(trainer.isEmpty()) {
+            throw new BadRequestException("No trainer mapped for given user Id");
+        }
+        TrainerDto trainerDto = Trainer.prepareTrainerDto(trainer.get());
+        return trainerDto;
+    }
 }

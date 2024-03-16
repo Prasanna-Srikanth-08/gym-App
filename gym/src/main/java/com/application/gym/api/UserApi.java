@@ -5,6 +5,7 @@ import com.application.gym.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.websocket.server.PathParam;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,5 +64,16 @@ public class UserApi {
     @GetMapping("/user/find/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) throws BadRequestException {
         return new ResponseEntity<>(userService.getUserById(userId),HttpStatus.OK);
+    }
+
+    @Operation(description = "To fetch trainer details by using user id",
+            summary = "Fetch Trainer",
+            responses = {
+                    @ApiResponse(responseCode = "200",description = "OK"),
+                    @ApiResponse(responseCode = "400",description = "Bad Request")
+            })
+    @GetMapping("/user/trainerDetails")
+    public ResponseEntity<TrainerDto> getTraierDetails(@RequestParam("id") Long id) throws BadRequestException {
+        return new ResponseEntity<>(userService.getTrainerDetails(id),HttpStatus.OK);
     }
 }
